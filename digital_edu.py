@@ -42,7 +42,14 @@ def set_langs(langs: str):
 
 df.langs = df.langs.apply(set_langs)
 
-
 df.education_form.fillna('Full-time', inplace=True)
 
-print(pd.get_dummies(df.education_form).head(50))
+columns_names=list(pd.get_dummies(df.education_form).columns)
+
+df[columns_names] = pd.get_dummies(df.education_form)
+
+print(df[columns_names].head(50))
+
+df.drop('education_form', axis=1, inplace=True)
+
+df.info()
